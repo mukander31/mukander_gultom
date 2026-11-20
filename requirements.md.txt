@@ -1,0 +1,19 @@
+#Konsep desain
+- Warna: Putih, Navy, dan Biru.
+- Font: Modern sans-serif.
+- Layout: One Page Portfolio.
+- Navigasi: Home, About, Projects, Experience, Contact.
+- Tampilan: Minimalis, bersih, profesional, dan responsif.
+#Struktur halaman
+1. Hero Section – Foto profil, nama, profesi, dan tombol kontak.
+2. About Me – Deskripsi singkat dan pendidikan.
+3. My Skills – Laravel, PHP, MySQL, JavaScript, Bootstrap, Git, Python.
+4. Experience – Pengalaman dan perjalanan profesional.
+5. Featured Projects – Menampilkan proyek seperti E-Surat Kampus.
+6. Contact – Informasi kontak dan media sosial.
+#Untuk portofolio ini harus statis, desain ini menggunakan teknologi:
+- HTML5 dan CSS3.
+- JavaScript.
+- Tailwinds.
+
+#Web Portofolio ini tidak menggukanan database, akan tetapi menggunakan google drive sebagai tempat penyimpanannya, jadi kalo ada cv dan dokumen lainnya jika di klik mengarah pada link tersebut.

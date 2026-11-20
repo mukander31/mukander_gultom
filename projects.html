@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Proyek pilihan Mukander Santono Gultom, web developer dan mahasiswa Sistem Informasi."
+    />
+    <meta name="theme-color" content="#f8faff" />
+    <title>Proyek — Mukander Santono Gultom</title>
+    <link rel="icon" type="image/webp" href="UI/logo.webp" data-site-href="assets.logo" data-site-type="assets.logoType" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="styles.css?v=justify-copy-16" />
+    <script src="site-content.js?v=profile-theme-14" defer></script>
+    <script src="script.js?v=gmail-contact-12" defer></script>
+  </head>
+  <body data-page="projects">
+    <header class="site-header" id="top">
+      <nav class="nav-shell mx-auto flex items-center justify-between" aria-label="Navigasi utama" data-i18n-aria-label="nav.label">
+        <a class="brand flex items-center gap-3" href="index.html#home" data-site-href="links.home" aria-label="Mukander Gultom, beranda" data-i18n-aria-label="nav.brand">
+          <img src="UI/logo.webp" data-site-src="assets.logo" alt="" class="brand-logo" />
+          <span data-site-text="profile.brandName">Mukander Gultom</span>
+        </a>
+        <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Buka navigasi" data-i18n-aria-label="nav.open">
+          <span></span><span></span>
+        </button>
+        <button class="menu-backdrop" type="button" aria-label="Tutup navigasi" data-i18n-aria-label="nav.close" tabindex="-1"></button>
+        <div class="nav-links" id="primary-navigation">
+          <a class="nav-link" href="index.html#home" data-site-href="links.home" data-i18n="nav.home">Beranda</a>
+          <a class="nav-link" href="index.html#about" data-site-href="links.about" data-i18n="nav.about">Tentang</a>
+          <a class="nav-link active" href="projects.html" data-site-href="links.projects" aria-current="page" data-i18n="nav.projects">Proyek</a>
+          <a class="nav-link" href="experience.html" data-site-href="links.experience" data-i18n="nav.experience">Pengalaman</a>
+          <a class="nav-link" href="index.html#contact" data-site-href="links.contact" data-i18n="nav.contact">Kontak</a>
+          <a class="button button-small button-navy cv-link" href="index.html#contact" data-site-href="links.cv" aria-label="Hubungi saya untuk meminta CV" data-i18n-aria-label="nav.cvAria">
+            <span data-i18n="nav.cv">Unduh CV</span> <span aria-hidden="true">↓</span>
+          </a>
+          <div class="preference-controls" data-i18n-aria-label="settings.label" role="group">
+            <button class="preference-button theme-toggle" type="button" aria-label="Aktifkan mode gelap" title="Aktifkan mode gelap" data-i18n-aria-label="settings.dark" data-i18n-title="settings.dark">
+              <span class="theme-icon" aria-hidden="true">☾</span>
+            </button>
+            <button class="preference-button language-toggle" type="button" aria-label="Switch to English" title="Switch to English">EN</button>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero">
+        <div class="section-container">
+          <p class="eyebrow"><span class="eyebrow-line"></span> <span data-i18n="projects.eyebrow">Karya Pilihan</span></p>
+          <h1 data-i18n="projects.heading">Proyek Saya</h1>
+          <p data-i18n="projects.pageIntro">Jelajahi proyek pilihan saya, lalu pilih kartu untuk melihat tujuan, peran, teknologi, dan tautan kode.</p>
+        </div>
+      </section>
+
+      <section class="projects-page-content">
+        <div class="section-container">
+          <section class="projects-panel reveal" aria-labelledby="projects-list-title">
+            <div class="project-browser">
+              <div class="project-list-panel">
+                <h2 id="projects-list-title" data-i18n="projects.listLabel">Daftar Proyek</h2>
+                <div class="project-list" id="project-list" role="group" aria-label="Daftar proyek" data-i18n-aria-label="projects.listLabel"></div>
+              </div>
+              <div class="project-detail-panel" id="project-detail" aria-live="polite" aria-labelledby="project-detail-title"></div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner section-container">
+        <a class="footer-brand" href="index.html#home" data-site-href="links.home">
+          <img src="UI/logo.webp" data-site-src="assets.logo" alt="" />
+          <span><b data-site-text="profile.brandName">Mukander Gultom</b><small data-i18n="common.motto">Berkarya · Belajar · Bertumbuh</small></span>
+        </a>
+        <p class="footer-copy">© <span id="current-year"></span> <span data-site-text="profile.fullName">Mukander Santono Gultom</span>. <span data-i18n="footer.note">Dibuat dengan semangat belajar.</span></p>
+        <a class="back-to-top" href="#top" data-site-href="links.top" aria-label="Kembali ke atas" data-i18n-aria-label="footer.top">↑</a>
+      </div>
+    </footer>
+  </body>
+</html>
