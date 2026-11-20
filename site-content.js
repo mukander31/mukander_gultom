@@ -33,6 +33,8 @@
      dateKey/titleKey/descriptionKey serta placeKey/suffixKey/pointKeys merujuk ke
      translations. place dapat pula menunjuk ke nilai konfigurasi, misalnya
      "profile.university". education mengatur kartu pendidikan di halaman tersebut.
+  8. services — endpoint penghitung kunjungan Cloudflare. Petunjuk penerbitan dan
+     konfigurasi endpoint tersedia di VISITOR_COUNTER_SETUP.md.
 
   PETA KONTEN PER HALAMAN / KOMPONEN
   - Header: nav.* untuk nama menu, tombol CV, dan aksesibilitas; settings.* untuk
@@ -78,13 +80,16 @@ window.PORTFOLIO_CONTENT = {
     email: "mukander31@gmail.com",
     location: "Medan, Indonesia",
     university: "Universitas Sari Mutiara Indonesia",
-    photo: "assets/images/profil.png",
+    photo: "assets/images/profile.png",
   },
   assets: {
     logo: "assets/images/logo.webp",
     logoType: "image/webp",
     imageDirectory: "assets/images/",
     documentDirectory: "assets/documents/",
+  },
+  services: {
+    visitorCounterEndpoint: "https://mukander-portfolio-counter.mukander-counter.workers.dev/api/visitors",
   },
   links: {
     home: "index.html#home",
@@ -129,8 +134,11 @@ window.PORTFOLIO_CONTENT = {
     "hero.highlightStudy": "Sistem Informasi",
     "hero.highlightFocus": "Pengembangan Web",
     "hero.highlightLocation": "Medan, Indonesia",
-    "about.terminal": "Menciptakan hal bermanfaat",
-    "about.badge": "Selalu ingin tahu",
+    "hero.highlightVisitors": "Total kunjungan",
+    "hero.visitorCounter": "Jumlah kunjungan website",
+    "hero.visitorLoading": "Memuat jumlah kunjungan",
+    "hero.visitorUpdateFailed": "Pembaruan jumlah kunjungan gagal",
+    "hero.visitorUnavailable": "Jumlah kunjungan tidak tersedia",
     "about.eyebrow": "Tentang Saya",
     "about.heading": "Membangun solusi digital,<br /><span>satu langkah setiap hari.</span>",
     "about.description": "Saya adalah mahasiswa Sistem Informasi di Universitas Sari Mutiara Indonesia. Saya memiliki minat kuat pada pengembangan web, desain sistem, dan teknologi. Saya senang terus belajar dan berkontribusi melalui solusi yang inovatif dan efisien.",
@@ -246,8 +254,11 @@ window.PORTFOLIO_CONTENT = {
     "hero.highlightStudy": "Information Systems",
     "hero.highlightFocus": "Web Development",
     "hero.highlightLocation": "Medan, Indonesia",
-    "about.terminal": "Creating useful things",
-    "about.badge": "Curious by nature",
+    "hero.highlightVisitors": "Total visits",
+    "hero.visitorCounter": "Total website visits",
+    "hero.visitorLoading": "Loading visit total",
+    "hero.visitorUpdateFailed": "Visit total update failed",
+    "hero.visitorUnavailable": "Visit total unavailable",
     "about.eyebrow": "About Me",
     "about.heading": "Building digital solutions,<br /><span>one step at a time.</span>",
     "about.description": "I'm an Information Systems student at Universitas Sari Mutiara Indonesia. I'm deeply interested in web development, system design, and technology. I enjoy learning new things and contributing through innovative, efficient solutions.",
@@ -335,7 +346,7 @@ window.PORTFOLIO_CONTENT = {
   projects: [
   {
     id: "e-surat-kampus",
-    image: "assets/images/beranda.png",
+    image: "",
     name: "E-Surat Kampus",
     year: "2024",
     categoryKey: "projects.label",
@@ -346,20 +357,6 @@ window.PORTFOLIO_CONTENT = {
     technologies: ["Laravel", "MySQL", "Bootstrap"],
     githubUrl: "https://github.com/search?q=E-Surat+Kampus&type=repositories",
   },
-  
-  {
-    id: "sample-project-05",
-    image: "",
-    nameKey: "projects.sampleProject05",
-    year: "Demo",
-    categoryKey: "projects.sampleLabel",
-    descriptionKey: "projects.sampleDescription",
-    goalKey: "projects.sampleGoal",
-    roleKey: "projects.sampleRole",
-    stackKey: "projects.sampleStack",
-    technologies: [],
-  },
-
   
 ],
   skills: [

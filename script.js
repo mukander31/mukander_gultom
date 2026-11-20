@@ -14,6 +14,9 @@ const projectList = document.querySelector("#project-list");
 const projectDetail = document.querySelector("#project-detail");
 const skillsList = document.querySelector("#skills-list");
 const experienceList = document.querySelector("#experience-list");
+const visitorCountOutput = document.querySelector("[data-visitor-count]");
+let visitorCountValue = null;
+let visitorCountStatus = "loading";
 const projects = portfolioContent.projects;
 let selectedProjectId = projects[0]?.id;
 const renderProjectList = () => {
@@ -150,6 +153,69 @@ const applySiteContentBindings = () => {
   });
 };
 
+const renderVisitorCount = () => {
+  if (!visitorCountOutput) return;
+  if (visitorCountValue === null) {
+    visitorCountOutput.textContent = "—";
+    const statusKey = visitorCountStatus === "loading" ? "hero.visitorLoading" : "hero.visitorUnavailable";
+    visitorCountOutput.title = translations[currentLanguage][statusKey];
+    return;
+  }
+
+  const formattedCount = new Intl.NumberFormat("en-US", {
+    notation: "compact",
+    maximumFractionDigits: 1,
+  }).format(visitorCountValue);
+  visitorCountOutput.textContent = `${formattedCount} Visits`;
+  const titleKey = visitorCountStatus === "stale" ? "hero.visitorUpdateFailed" : "hero.highlightVisitors";
+  visitorCountOutput.title = translations[currentLanguage][titleKey];
+};
+
+const requestVisitorCount = async (method) => {
+  const endpoint = portfolioContent.services?.visitorCounterEndpoint;
+  if (typeof endpoint !== "string" || !endpoint.trim()) {
+    throw new Error("Visitor counter endpoint is not configured in site-content.js.");
+  }
+
+  const response = await fetch(endpoint, { method, cache: "no-store" });
+  if (!response.ok) {
+    throw new Error(`Visitor counter request failed with status ${response.status}.`);
+  }
+
+  const result = await response.json();
+  if (!Number.isSafeInteger(result.count) || result.count < 0) {
+    throw new Error("Visitor counter returned an invalid total.");
+  }
+  return result.count;
+};
+
+const refreshVisitorCount = async () => {
+  if (!visitorCountOutput) return;
+
+  try {
+    visitorCountValue = await requestVisitorCount("GET");
+    visitorCountStatus = "ready";
+    renderVisitorCount();
+  } catch (error) {
+    visitorCountStatus = visitorCountValue === null ? "unavailable" : "stale";
+    renderVisitorCount();
+    console.error("Could not refresh the visitor count.", error);
+  }
+};
+
+const loadVisitorCount = async () => {
+  try {
+    visitorCountValue = await requestVisitorCount("POST");
+    visitorCountStatus = "ready";
+    renderVisitorCount();
+    if (visitorCountOutput) window.setInterval(refreshVisitorCount, 15000);
+  } catch (error) {
+    visitorCountStatus = "unavailable";
+    renderVisitorCount();
+    console.error("Could not load the visitor count.", error);
+  }
+};
+
 const applyProfilePhoto = () => {
   const image = document.querySelector(".portrait-photo");
   const initials = document.querySelector(".portrait-initials");
@@ -247,6 +313,7 @@ const setLanguage = (language) => {
   renderProjects();
   renderSkills();
   renderExperience();
+  renderVisitorCount();
   menuToggle?.setAttribute("aria-label", dictionary[menuToggle.getAttribute("aria-expanded") === "true" ? "nav.close" : "nav.open"]);
   languageToggle.textContent = language === "id" ? "EN" : "ID";
   languageToggle.setAttribute("aria-label", dictionary[language === "id" ? "settings.switchEnglish" : "settings.switchIndonesian"]);
@@ -317,3 +384,4 @@ document.querySelector("#current-year").textContent = new Date().getFullYear();
 applySiteContentBindings();
 setLanguage(currentLanguage);
 setTheme(currentTheme);
+loadVisitorCount();
