@@ -98,7 +98,7 @@ window.PORTFOLIO_CONTENT = {
     experience: "experience.html",
     contact: "index.html#contact",
     top: "#top",
-    cv: "index.html#contact",
+    cv: "assets/documents/cv.pdf",
   },
   translations: {
   id: {
