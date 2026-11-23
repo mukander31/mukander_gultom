@@ -171,20 +171,49 @@ Contoh key tambahan:
 "projects.stackNamaProyek": "Teknologi yang digunakan",
 ```
 
+Setiap proyek harus memakai kelompok key yang berbeda. Jangan gunakan
+`projects.description`, `projects.goal`, `projects.role`, dan `projects.stack`
+untuk beberapa proyek jika deskripsinya berbeda. Contoh susunan untuk tiga
+proyek:
+
+```js
+// Proyek 1
+descriptionKey: "projects.proyekSatuDescription",
+goalKey: "projects.proyekSatuGoal",
+roleKey: "projects.proyekSatuRole",
+stackKey: "projects.proyekSatuStack",
+
+// Proyek 2
+descriptionKey: "projects.proyekDuaDescription",
+goalKey: "projects.proyekDuaGoal",
+roleKey: "projects.proyekDuaRole",
+stackKey: "projects.proyekDuaStack",
+
+// Proyek 3
+descriptionKey: "projects.proyekTigaDescription",
+goalKey: "projects.proyekTigaGoal",
+roleKey: "projects.proyekTigaRole",
+stackKey: "projects.proyekTigaStack",
+```
+
 ## 7. Mengubah Pengalaman
 
-Buka `pages.experience.entries`.
+Buka panel `pages.experience.experienceTemplate` sebagai formulir isian.
+Salin objek tersebut ke `pages.experience.items`, lalu ubah seluruh nilainya.
 
 Setiap objek merepresentasikan satu kartu timeline.
 
 ```js
 {
-  dateKey: "experience.date",
-  titleKey: "hero.role",
-  suffixKey: "experience.role",
+  dateKey: "experience.dateNamaPengalaman",
+  titleKey: "experience.titleNamaPengalaman",
+  suffixKey: "experience.suffixNamaPengalaman",
   place: "identity.university",
-  descriptionKey: "experience.description",
-  pointKeys: ["experience.pointOne", "experience.pointTwo"],
+  descriptionKey: "experience.descriptionNamaPengalaman",
+  pointKeys: [
+    "experience.pointOneNamaPengalaman",
+    "experience.pointTwoNamaPengalaman",
+  ],
 }
 ```
 
@@ -192,6 +221,7 @@ Setiap objek merepresentasikan satu kartu timeline.
 - `place` dapat menunjuk ke data identitas, misalnya `identity.university`.
 - `pointKeys` berisi daftar key untuk poin-poin di bawah deskripsi.
 - Urutan array menentukan urutan timeline.
+- `suffixKey` dapat diganti dengan `""` jika kartu tidak memerlukan tambahan peran.
 
 Kartu pendidikan dapat diubah pada `pages.experience.education`.
 

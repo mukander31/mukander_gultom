@@ -254,7 +254,8 @@ const renderExperience = () => {
   if (!experienceList) return;
   const dictionary = translations[currentLanguage];
   const content = portfolioContent.pages.experience;
-  const entries = content.entries.map((entry) => {
+  const entries = (Array.isArray(content.entries) ? content.entries : content.items)
+    .map((entry) => {
     const place = entry.placeKey ? dictionary[entry.placeKey] : getSiteContentValue(entry.place);
     const suffix = entry.suffixKey ? ` <span>${dictionary[entry.suffixKey]}</span>` : "";
     const points = entry.pointKeys
