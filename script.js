@@ -17,7 +17,8 @@ const experienceList = document.querySelector("#experience-list");
 const visitorCountOutput = document.querySelector("[data-visitor-count]");
 let visitorCountValue = null;
 let visitorCountStatus = "loading";
-const projects = portfolioContent.projects;
+const projectsPanel = portfolioContent.pages.projects;
+const projects = Array.isArray(projectsPanel) ? projectsPanel : projectsPanel.items;
 let selectedProjectId = projects[0]?.id;
 const renderProjectList = () => {
   const dictionary = translations[currentLanguage];
@@ -82,8 +83,7 @@ const renderProjectDetail = () => {
     ${project.githubUrl
       ? `<a class="project-github-link" href="${project.githubUrl}" target="_blank" rel="noopener noreferrer">
           <span aria-hidden="true">⌘</span> ${dictionary["projects.githubLabel"]} <span aria-hidden="true">↗</span>
-        </a>
-        <p class="project-github-note">${dictionary["projects.githubNote"]}</p>`
+        </a>`
       : `<p class="project-github-note">${dictionary["projects.sampleNote"]}</p>`}
   `;
 };
@@ -106,7 +106,12 @@ projectList?.addEventListener("click", (event) => {
   renderProjectDetail();
 });
 
-const getSiteContentValue = (path) => path.split(".").reduce((value, key) => value?.[key], portfolioContent);
+const getSiteContentValue = (path) => {
+  const normalizedPath = path
+    .replace(/^profile\./, "identity.")
+    .replace(/^links\./, "navigation.");
+  return normalizedPath.split(".").reduce((value, key) => value?.[key], portfolioContent);
+};
 
 const applySiteContentBindings = () => {
   document.querySelectorAll("[data-site-text]").forEach((element) => {
@@ -142,13 +147,13 @@ const applySiteContentBindings = () => {
     element.setAttribute("type", value);
   });
   document.querySelectorAll("[data-site-mailto]").forEach((element) => {
-    element.setAttribute("href", `mailto:${portfolioContent.profile.email}`);
+    element.setAttribute("href", `mailto:${portfolioContent.identity.email}`);
   });
   document.querySelectorAll("[data-site-gmail]").forEach((element) => {
     const gmailUrl = new URL("https://mail.google.com/mail/");
     gmailUrl.searchParams.set("view", "cm");
     gmailUrl.searchParams.set("fs", "1");
-    gmailUrl.searchParams.set("to", portfolioContent.profile.email);
+    gmailUrl.searchParams.set("to", portfolioContent.identity.email);
     element.setAttribute("href", gmailUrl.toString());
   });
 };
@@ -172,7 +177,7 @@ const renderVisitorCount = () => {
 };
 
 const requestVisitorCount = async (method) => {
-  const endpoint = portfolioContent.services?.visitorCounterEndpoint;
+  const endpoint = portfolioContent.integrations?.visitorCounterEndpoint;
   if (typeof endpoint !== "string" || !endpoint.trim()) {
     throw new Error("Visitor counter endpoint is not configured in site-content.js.");
   }
@@ -222,12 +227,12 @@ const applyProfilePhoto = () => {
   const frame = document.querySelector(".portrait-placeholder");
   if (!image || !initials || !frame) return;
 
-  const photoPath = portfolioContent.profile.photo;
+  const photoPath = portfolioContent.identity.photo;
   const hasPhoto = Boolean(photoPath);
   frame.classList.toggle("has-portrait", hasPhoto);
   initials.hidden = hasPhoto;
   image.hidden = !hasPhoto;
-  image.alt = `${translations[currentLanguage]["hero.photoAlt"]} ${portfolioContent.profile.fullName}`;
+  image.alt = `${translations[currentLanguage]["hero.photoAlt"]} ${portfolioContent.identity.fullName}`;
   image.onerror = () => {
     image.hidden = true;
     initials.hidden = false;
@@ -240,7 +245,7 @@ const applyProfilePhoto = () => {
 
 const renderSkills = () => {
   if (!skillsList) return;
-  skillsList.innerHTML = portfolioContent.skills
+  skillsList.innerHTML = portfolioContent.pages.home.skills
     .map((skill) => `<div class="skill-card"><span class="skill-mark ${skill.className}">${skill.mark}</span><span>${skill.name}</span></div>`)
     .join("");
 };
@@ -248,7 +253,7 @@ const renderSkills = () => {
 const renderExperience = () => {
   if (!experienceList) return;
   const dictionary = translations[currentLanguage];
-  const content = portfolioContent.experience;
+  const content = portfolioContent.pages.experience;
   const entries = content.entries.map((entry) => {
     const place = entry.placeKey ? dictionary[entry.placeKey] : getSiteContentValue(entry.place);
     const suffix = entry.suffixKey ? ` <span>${dictionary[entry.suffixKey]}</span>` : "";

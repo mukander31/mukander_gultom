@@ -1,109 +1,81 @@
 /*
-  PANDUAN EDIT KONTEN PORTOFOLIO
+  ==================================================================
+  PANEL MANAJEMEN KONTEN PORTOFOLIO
+  ==================================================================
+  File ini adalah satu-satunya sumber data konten untuk situs.
 
-  File ini adalah pusat data untuk teks, identitas, tautan, proyek, pengalaman,
-  keahlian, logo, dan foto yang dipakai oleh halaman Beranda, Proyek, dan Pengalaman.
-  Edit nilai di bawah ini, simpan file, lalu muat ulang atau terbitkan ulang situs.
-  Jangan menghapus nama properti, ID proyek, atau key terjemahan yang sudah dipakai.
+  PETA PANEL
+  1. identity       Identitas pemilik yang dipakai lintas halaman.
+  2. assets         Logo, foto, dokumen, dan folder aset.
+  3. navigation     Tujuan menu dan tautan berbagi lintas halaman.
+  4. integrations   Endpoint layanan eksternal.
+  5. translations   Seluruh teks UI dan terjemahan.
+  6. pages.home     Kumpulan komponen khusus halaman Beranda.
+  7. pages.projects Kumpulan kartu dan detail halaman Proyek.
+  8. pages.experience
+                    Kumpulan timeline dan pendidikan halaman Pengalaman.
 
-  BAGIAN YANG DAPAT DIEDIT
-  1. profile — identitas yang digunakan lintas halaman: fullName, brandName, initials,
-     email, location, university, dan photo. Simpan foto di assets/images/, lalu isi
-     photo dengan path relatif, misalnya "assets/images/foto-saya.webp". Isi "" untuk
-     menampilkan inisial sebagai pengganti foto.
-  2. assets — lokasi logo dan folder aset. Jika format logo berubah, sesuaikan logoType
-     dengan MIME type-nya (contoh PNG: "image/png").
-  3. links — href menu header, tombol Beranda, tombol Lihat Proyek, tautan Tentang/
-     Pengalaman/Kontak, tombol kembali ke atas, serta tombol CV. Untuk CV, simpan file
-     di assets/documents/cv.pdf lalu ubah cv menjadi "assets/documents/cv.pdf".
-  4. translations.id / translations.en — semua teks halaman Beranda, Proyek, Pengalaman,
-     header, kontrol tema/bahasa, metadata, dan footer. Key dibagi menurut
-     komponen (misalnya hero.*, about.*, projects.*, experience.*, contact.*, footer.*).
-     Ubah nilai pada kedua bahasa bila ingin perubahan berlaku pada kedua bahasa.
-     Key baru harus ditambahkan dengan nama yang sama di kedua kamus.
-  5. projects — urutan kartu pada halaman Proyek dan detail kartu terpilih. Foto proyek
-     diletakkan di assets/images/ dan path-nya diisi ke image. Untuk proyek baru, salin
-     pola objek yang sudah ada, pakai id unik, lalu isi year, technologies, githubUrl,
-     dan key untuk kategori/deskripsi/tujuan/peran/stack. Teks dengan akhiran Key harus
-     tersedia di translations.id dan translations.en. Gunakan nameKey untuk nama berbeda
-     per bahasa atau name untuk nama yang sama; githubUrl dan image boleh "".
-  6. skills — daftar keahlian di Beranda. name adalah label, mark adalah ikon pendek,
-     dan className memilih gaya ikon yang tersedia di styles.css.
-  7. experience — entries mengatur urutan kartu timeline di halaman Pengalaman.
-     dateKey/titleKey/descriptionKey serta placeKey/suffixKey/pointKeys merujuk ke
-     translations. place dapat pula menunjuk ke nilai konfigurasi, misalnya
-     "profile.university". education mengatur kartu pendidikan di halaman tersebut.
-  8. services — endpoint penghitung kunjungan Cloudflare. Petunjuk penerbitan dan
-     konfigurasi endpoint tersedia di VISITOR_COUNTER_SETUP.md.
-
-  PETA KONTEN PER HALAMAN / KOMPONEN
-  - Header: nav.* untuk nama menu, tombol CV, dan aksesibilitas; settings.* untuk
-    label mode gelap/bahasa; links.* untuk tujuan semua menu dan tombol header.
-  - Beranda: pageTitle/pageDescription untuk metadata; hero.* untuk bagian pembuka
-    (termasuk hero.photoAlt); about.* untuk perkenalan, minat, dan pendidikan;
-    skills.* serta skills untuk daftar keahlian; contact.* untuk teks informasi kontak;
-    profile.* untuk nama, foto, email, lokasi, dan kampus.
-  - Proyek: projects.pageTitle/pageDescription/pageIntro untuk judul dan pengantar;
-    projects.* untuk label/detail/keadaan kosong; projects untuk isi dan urutan kartu.
-  - Pengalaman: experience.pageTitle/pageDescription/pageIntro untuk judul dan
-    pengantar; experience.* untuk timeline dan label; experience.entries serta
-    experience.education untuk isi dan urutan kartu.
-  - Footer semua halaman: profile.* untuk nama, common.motto untuk slogan,
-    footer.note untuk catatan, footer.top untuk label aksesibilitas, links.home
-    untuk logo/tautan beranda, dan links.top untuk tombol kembali ke atas.
-  - Saat mengubah kalimat, ubah key yang sama pada translations.id dan translations.en.
-    Contoh: ganti hero.description untuk paragraf pembuka Beranda; ganti
-    projects.pageIntro untuk pengantar halaman Proyek.
-
-  CONTOH MENAMBAH PROYEK
-  Tambahkan objek baru ke projects dan siapkan key teks pada kedua kamus bahasa:
-    { id: "aplikasi-baru", nameKey: "projects.newName", year: "2025",
-      categoryKey: "projects.newCategory", descriptionKey: "projects.newDescription",
-      goalKey: "projects.newGoal", roleKey: "projects.newRole",
-      stackKey: "projects.newStack", technologies: ["Laravel", "MySQL"],
-      image: "assets/images/aplikasi-baru.webp",
-      githubUrl: "https://github.com/akun/aplikasi-baru" }
-  Untuk menambah konten Beranda atau footer, ubah key yang sesuai di translations,
-  misalnya hero.description, about.heading, contact.description, common.motto, atau
-  footer.note. Untuk mengganti tulisan navigasi, ubah nav.*; tujuan link ada di links.
-
-  CATATAN
-  - Foto dan dokumen harus disalin manual ke folder aset; situs statis tidak mengunggahnya.
-  - File ini dikirim ke browser dan bukan tempat menyimpan password atau rahasia.
-  - Data/teks/path dapat diubah di sini; tata letak, warna, dan animasi tetap di HTML/CSS.
+  DOKUMENTASI USER
+  - Baca CONTENT_MANAGEMENT.md untuk prosedur lengkap dan contoh.
+  - Ubah teks visual di translations.id/translations.en.
+  - Ubah struktur daftar di pages.projects atau pages.experience.
+  - Jangan mengubah nama key atau ID yang dirujuk oleh script.js.
+  - Jangan menyimpan password, token, atau rahasia di file ini.
 */
 window.PORTFOLIO_CONTENT = {
-  profile: {
+  // ================================================================
+  // PANEL 1 — IDENTITAS PEMILIK
+  // Dipakai lintas halaman: Header, Hero, Tentang, Kontak, dan Footer.
+  // ================================================================
+  identity: {
     fullName: "Mukander Santono Gultom",
     brandName: "Mukander Gultom",
     initials: "MG",
-    email: "mukander31@gmail.com",
+    email: "gmukander@gmail.com",
     location: "Medan, Indonesia",
     university: "Universitas Sari Mutiara Indonesia",
     photo: "assets/images/profile.png",
   },
+  // ================================================================
+  // PANEL 2 — ASET
+  // Simpan file baru di folder aset, lalu ubah path di panel ini.
+  // ================================================================
   assets: {
     logo: "assets/images/logo.webp",
     logoType: "image/webp",
     imageDirectory: "assets/images/",
     documentDirectory: "assets/documents/",
   },
-  services: {
+  // ================================================================
+  // PANEL 3 — INTEGRASI EKSTERNAL
+  // Ganti nilai endpoint tanpa mengubah struktur penyimpanan lain.
+  // ================================================================
+  integrations: {
     visitorCounterEndpoint: "https://mukander-portfolio-counter.mukander-counter.workers.dev/api/visitors",
   },
-  links: {
+  // ================================================================
+  // PANEL 4 — NAVIGASI DAN TAUTAN
+  // Digunakan oleh Header, Footer, Hero, dan tombol lintas halaman.
+  // ================================================================
+  navigation: {
     home: "index.html#home",
     about: "index.html#about",
     projects: "projects.html",
     experience: "experience.html",
     contact: "index.html#contact",
     top: "#top",
-    cv: "assets/documents/cv.pdf",
+    cv: "assets/documents/CV Mukander ATS.pdf",
   },
+  // ================================================================
+  // PANEL 5 — TERJEMAHAN
+  // Setiap teks visual dipisahkan berdasarkan komponen:
+  // nav.*, settings.*, hero.*, about.*, skills.*, contact.*,
+  // projects.*, experience.*, common.*, dan footer.*.
+  // ================================================================
   translations: {
   id: {
-    pageTitle: "Mukander Santono Gultom — Web Developer",
-    pageDescription: "Portofolio Mukander Santono Gultom — web developer dan mahasiswa Sistem Informasi.",
+    pageTitle: "Mukander Santono Gultom — Junior Web Developer",
+    pageDescription: "Portofolio Mukander Santono Gultom — junior web developer.",
     "nav.label": "Navigasi utama",
     "nav.brand": "Mukander Gultom, beranda",
     "nav.open": "Buka navigasi",
@@ -123,9 +95,9 @@ window.PORTFOLIO_CONTENT = {
     "common.contactMe": "Hubungi Saya",
     "common.motto": "Berkarya · Belajar · Bertumbuh",
     "hero.hello": "Halo, saya",
-    "hero.role": "Web Developer",
-    "hero.student": "Mahasiswa Sistem Informasi",
-    "hero.description": "Saya mahasiswa Sistem Informasi di Universitas Sari Mutiara Indonesia yang tertarik pada pengembangan web, pemecahan masalah, dan membangun solusi digital yang bermanfaat.",
+    "hero.role": "Junior Web Developer",
+    "hero.student": "Lulusan Sistem Informasi",
+    "hero.description": "Saya lulusan Sistem Informasi dari Universitas Sari Mutiara Indonesia yang tertarik pada pengembangan web, pemecahan masalah, dan membangun solusi digital yang bermanfaat.",
     "hero.projects": "Lihat Proyek",
     "hero.visual": "Foto profil Mukander Gultom",
     "hero.photoAlt": "Ilustrasi foto profil sementara",
@@ -141,7 +113,7 @@ window.PORTFOLIO_CONTENT = {
     "hero.visitorUnavailable": "Jumlah kunjungan tidak tersedia",
     "about.eyebrow": "Tentang Saya",
     "about.heading": "Membangun solusi digital,<br /><span>satu langkah setiap hari.</span>",
-    "about.description": "Saya adalah mahasiswa Sistem Informasi di Universitas Sari Mutiara Indonesia. Saya memiliki minat kuat pada pengembangan web, desain sistem, dan teknologi. Saya senang terus belajar dan berkontribusi melalui solusi yang inovatif dan efisien.",
+    "about.description": "Saya adalah lulusan Sistem Informasi dari Universitas Sari Mutiara Indonesia. Saya memiliki minat kuat pada data analysis,pengembangan web, desain sistem, dan teknologi. Saya senang terus belajar dan berkontribusi melalui solusi yang inovatif dan efisien.",
     "about.link": "Kenali perjalanan saya",
     "about.education": "Pendidikan",
     "about.degreeTitle": "S1 Sistem Informasi",
@@ -202,8 +174,7 @@ window.PORTFOLIO_CONTENT = {
     "projects.detailsEyebrow": "Ringkasan Proyek",
     "projects.detailsIntro": "Klik kartu proyek untuk membaca penjelasan dan melihat kode di GitHub.",
     "projects.listLabel": "Daftar Proyek",
-    "projects.githubLabel": "Cari kode di GitHub",
-    "projects.githubNote": "Tautan membuka pencarian GitHub; ganti dengan URL repositori proyek jika tersedia.",
+    "projects.githubLabel": "Telusuri Projek",
     "projects.goalTitle": "Tujuan",
     "projects.goal": "Mendukung pengelolaan surat resmi di lingkungan kampus melalui aplikasi web.",
     "projects.roleTitle": "Peran",
@@ -322,8 +293,7 @@ window.PORTFOLIO_CONTENT = {
     "projects.detailsEyebrow": "Project Overview",
     "projects.detailsIntro": "Select a project card to read its details and find its code on GitHub.",
     "projects.listLabel": "Project List",
-    "projects.githubLabel": "Find code on GitHub",
-    "projects.githubNote": "This link opens GitHub search; replace it with the project repository URL when available.",
+    "projects.githubLabel": "Browse Projects",
     "projects.goalTitle": "Purpose",
     "projects.goal": "Supporting the management of official campus letters through a web application.",
     "projects.roleTitle": "Role",
@@ -341,56 +311,104 @@ window.PORTFOLIO_CONTENT = {
     "footer.note": "Made with a passion for learning.",
     "footer.top": "Back to top",
   },
-},
-  // Isi image dengan path di assets/images/, atau "" bila belum ada foto proyek.
-  projects: [
-  {
-    id: "e-surat-kampus",
-    image: "",
-    name: "E-Surat Kampus",
-    year: "2024",
-    categoryKey: "projects.label",
-    descriptionKey: "projects.description",
-    goalKey: "projects.goal",
-    roleKey: "projects.role",
-    stackKey: "projects.stack",
-    technologies: ["Laravel", "MySQL", "Bootstrap"],
-    githubUrl: "https://github.com/search?q=E-Surat+Kampus&type=repositories",
   },
-  
-],
-  skills: [
-    { name: "Laravel", mark: "L", className: "laravel" },
-    { name: "PHP", mark: "php", className: "php" },
-    { name: "MySQL", mark: "◉", className: "mysql" },
-    { name: "JavaScript", mark: "JS", className: "javascript" },
-    { name: "Bootstrap", mark: "B", className: "bootstrap" },
-    { name: "Git", mark: "◆", className: "git" },
-    { name: "Python", mark: "Py", className: "python" },
-  ],
-  experience: {
-    entries: [
-      {
-        dateKey: "experience.date",
-        titleKey: "hero.role",
-        suffixKey: "experience.role",
-        place: "profile.university",
-        descriptionKey: "experience.description",
-        pointKeys: ["experience.pointOne", "experience.pointTwo", "experience.pointThree"],
+
+  // ================================================================
+  // PANEL 6 — HALAMAN BERANDA
+  // Menyimpan komponen yang hanya atau terutama dipakai halaman ini.
+  // ================================================================
+  pages: {
+    home: {
+      // Komponen Hero dan bagian beranda dapat diubah di panel
+      // translations dengan prefix hero.* dan about.*.
+      skills: [
+        { name: "Laravel", mark: "L", className: "laravel" },
+        { name: "PHP", mark: "php", className: "php" },
+        { name: "MySQL", mark: "◉", className: "mysql" },
+        { name: "JavaScript", mark: "JS", className: "javascript" },
+        // { name: "Bootstrap", mark: "B", className: "bootstrap" },
+        { name: "Git", mark: "◆", className: "git" },
+        { name: "Python", mark: "Py", className: "python" },
+      ],
+    },
+
+    // ==============================================================
+    // PANEL 7 — HALAMAN PROYEK
+    // Tambah proyek dengan menyalin satu objek lalu memakai id unik.
+    // image: path aset proyek, atau "" jika belum ada foto.
+    // ==============================================================
+    projects: {
+      // --------------------------------------------------------------
+      // PANEL ISIAN PROYEK
+      // Salin objek projectTemplate di bawah, lalu tempelkan ke `items`.
+      // Isi satu field per baris agar mudah ditemukan dan dimodifikasi.
+      // --------------------------------------------------------------
+      projectTemplate: {
+        id: "nama-proyek-tanpa-spasi",
+        name: "Nama Proyek",
+        year: "2026",
+        image: "assets/images/nama-proyek.webp",
+        categoryKey: "projects.categoryNamaProyek",
+        descriptionKey: "projects.descriptionNamaProyek",
+        goalKey: "projects.goalNamaProyek",
+        roleKey: "projects.roleNamaProyek",
+        stackKey: "projects.stackNamaProyek",
+        technologies: ["Teknologi 1", "Teknologi 2"],
+        githubUrl: "https://github.com/pemilik/nama-repository",
       },
-      ...["02", "03", "04", "05", "06"].map((number) => ({
-        preview: true,
-        dateKey: "experience.previewDate",
-        titleKey: `experience.sampleProject${number}`,
-        placeKey: "experience.previewTag",
-        descriptionKey: "experience.previewDescription",
-      })),
-    ],
-    education: {
-      labelKey: "experience.educationLabel",
-      titleKey: "about.degreeTitle",
-      place: "profile.university",
-      descriptionKey: "experience.educationDescription",
+
+      // --------------------------------------------------------------
+      // DATA PROYEK AKTIF
+      // Urutan objek menentukan urutan kartu pada halaman Proyek.
+      // Untuk menyembunyikan foto: image: ""
+      // Untuk menyembunyikan tombol kode: githubUrl: ""
+      // --------------------------------------------------------------
+      items: [
+        {
+          id: "e-surat-kampus",
+          name: "E-Surat Kampus",
+          year: "2024",
+          image: "",
+          categoryKey: "projects.label",
+          descriptionKey: "projects.description",
+          goalKey: "projects.goal",
+          roleKey: "projects.role",
+          stackKey: "projects.stack",
+          technologies: ["Laravel", "MySQL", "Bootstrap"],
+          githubUrl: "https://github.com/search?q=E-Surat+Kampus&type=repositories",
+        },
+      ],
+    },
+
+    // ==============================================================
+    // PANEL 8 — HALAMAN PENGALAMAN
+    // entries mengatur urutan timeline.
+    // education mengatur kartu pendidikan paling bawah.
+    // ==============================================================
+    experience: {
+      entries: [
+        {
+          dateKey: "experience.date",
+          titleKey: "hero.role",
+          suffixKey: "experience.role",
+          place: "identity.university",
+          descriptionKey: "experience.description",
+          pointKeys: ["experience.pointOne", "experience.pointTwo", "experience.pointThree"],
+        },
+        ...["02", "03", "04", "05", "06"].map((number) => ({
+          preview: true,
+          dateKey: "experience.previewDate",
+          titleKey: `experience.sampleProject${number}`,
+          placeKey: "experience.previewTag",
+          descriptionKey: "experience.previewDescription",
+        })),
+      ],
+      education: {
+        labelKey: "experience.educationLabel",
+        titleKey: "about.degreeTitle",
+        place: "identity.university",
+        descriptionKey: "experience.educationDescription",
+      },
     },
   },
 };
